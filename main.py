@@ -20,8 +20,7 @@ def show_tensor_images(image_tensor, num_images=25, size=(1, 28, 28)):
     image_unflat = image_tensor.detach().cpu().view(-1, *size)
     image_grid = make_grid(image_unflat[:num_images], nrow=5)
     plt.imshow(image_grid.permute(1, 2, 0).squeeze())
-    plt.show(block=False)
-    time.sleep(1)
+    plt.show()
 
 # GENERATOR
 
@@ -40,7 +39,7 @@ def get_generator_block(input_dim, output_dim):
         # https://pytorch.org/docs/stable/nn.html.
         nn.Linear(input_dim, output_dim), # linear transformation to map to another shape
         nn.BatchNorm1d(output_dim), # batch normalization for stabilization
-        nn.ReLU(inplace=True), # activation function to complex output transformations
+        nn.ReLU(inplace=True), # activation function for complex output transformations
     )
 
 # Verify the generator block function
@@ -258,7 +257,7 @@ print("Test discriminator: Success!")
 criterion = nn.BCEWithLogitsLoss() # the loss function
 n_epochs = 200 # the number of times you iterate through the entire dataset when training
 z_dim = 64 # the dimension of the noise vector
-display_step = 500 # how often to display/visualize the images
+display_step = 3000 # how often to display/visualize the images
 batch_size = 128 # the number of images per forward/backward pass
 lr = 0.00001 # the learning rate
 device = 'cpu' # the device type, here using a GPU (which runs CUDA), not CPU
